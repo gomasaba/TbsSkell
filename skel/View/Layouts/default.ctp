@@ -11,8 +11,8 @@
     <![endif]-->
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('bootstrap.min');
+		echo $this->Html->css('style');
 		echo $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js');
 		echo $this->Html->script('bootstrap-dropdown');
 		echo $this->Html->script('bootstrap-alerts');
@@ -56,10 +56,8 @@
 		<?php
 		echo $this->Html->getCrumbList(array('id'=>'breadcrumb'));
 		?>
-      <div class="content">
 		  <?php echo $this->Session->flash(); ?>
 		  <?php echo $content_for_layout; ?>
-      </div>
     </div>
 	<footer class="footer">
 	  <p>&copy; Company 2011</p>

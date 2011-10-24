@@ -33,7 +33,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	
-	public $components = array('Session','Auth','DebugKit.Toolbar',
+	public $components = array('Session',
 							'Paginator'=>array(
 									'paramType'=>'querystring',
 									'maxLimit' => 10,

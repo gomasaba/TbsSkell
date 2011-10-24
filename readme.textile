@@ -1,2 +1,9 @@
 Title: TwitterBootstrapのbakeテンプレート
 
+
+git submodule add 
+
+
+cake bake project your_app_name --skel plugins/TbsSkell/skel/
+
+
