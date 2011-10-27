@@ -1,6 +1,27 @@
 /**
 * style css
 */
+td.head{
+	width:200px;
+	background-color: #f0f1f1;
+}
+ul.btns{
+	list-style: none;
+}
+ul.btns li{
+	margin-bottom: 4px;
+}
+.pagination a:hover, .pagination .active a {
+    background-color: #C7EEFE;
+}
+.pagination li.current {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+}
+
 footer {
 	clear: both;
 	text-align: center;

@@ -3,7 +3,7 @@
 	<h3><?php echo "<?php echo __('Actions'); ?>"; ?></h3>
 <?php echo " <?php echo \$this->Html->nestedList(array(\n"?>
 <?php if (strpos($action, 'add') === false): ?>
-	<?php echo "\$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Are you sure you want to delete # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}')));\n";?>
+	<?php echo "\$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')),array('class'=>'btn danger'), __('Are you sure you want to delete # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}'))),\n";?>
 <?php endif;?>	
 <?php echo "\$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index'),array('class'=>'btn')),\n"?>
 <?php
@@ -11,14 +11,14 @@
 	foreach ($associations as $type => $data) {
 		foreach ($data as $alias => $details) {
 			if ($details['controller'] != $this->name && !in_array($details['controller'], $done)) {
-				echo "\t\t\$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index'),array('class'=>'btn'))\n";
-				echo "\t\t\$this->Html->link(__('New " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add'),array('class'=>'btn'))\n";
+				echo "\t\t\$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index'),array('class'=>'btn')),\n";
+				echo "\t\t\$this->Html->link(__('New " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add'),array('class'=>'btn')),\n";
 				$done[] = $details['controller'];
 			}
 		}
 	}
 ?>
-<?php echo "));\n?>"?>
+<?php echo "),array('class'=>'btns'));\n?>"?>
 	
 	</div>
 </div>

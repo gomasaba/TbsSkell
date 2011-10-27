@@ -33,12 +33,16 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	
-	public $components = array('Session',
+	public $components = array('Session','Auth',
 							'Paginator'=>array(
 									'paramType'=>'querystring',
 									'maxLimit' => 10,
 							)
 	);
 	public $helpers = array('Session', 'Html', 'Form','Time','Js');
+	public function beforeFilter() {
+		$this->Auth->allow('*');
+		parent::beforeFilter();
+	}
 	
 }

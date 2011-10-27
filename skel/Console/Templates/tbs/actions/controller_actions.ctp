@@ -54,7 +54,7 @@
 			if ($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been saved'),'alert',array('class'=>'success'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' =>'view',$this-><?php echo $currentModelName; ?>->id));
 <?php else: ?>
 				$this->flash(__('<?php echo ucfirst(strtolower($currentModelName)); ?> saved.'),array('action' => 'index'));
 <?php endif; ?>
@@ -97,7 +97,7 @@
 			if ($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been saved'),'alert',array('class'=>'success'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' =>'edit',$this-><?php echo $currentModelName; ?>->id));
 <?php else: ?>
 				$this->flash(__('The <?php echo strtolower($singularHumanName); ?> has been saved.'), array('action' => 'index'));
 <?php endif; ?>

@@ -1,9 +1,33 @@
-Title: TwitterBootstrapのbakeテンプレート
+h1. TwitterBootstrapのbakeテンプレート
 
+h2. 使い方
 
-git submodule add 
-
+<pre>
+git submodule add https://github.com/milds/TbsSkell /path/to/cakephp/plugins/TbsSkell
 
 cake bake project your_app_name --skel plugins/TbsSkell/skel/
+
+/pages/home.ctpを上書きしますと聞かれますがどちらでも
+
+cake bake all
+
+1.tbl
+2.default
+
+１を選択して下さい。。
+
+</pre>
+
+h2. Bakeしたイメージ
+!/milds/TbsSkell/raw/master/tmp/Home.png!
+
+!/milds/TbsSkell/raw/master/tmp/Posts.png!
+
+!/milds/TbsSkell/raw/master/tmp/Users_login.png!
+
+
+h2. 備考
+
+ログイン画面のレイアウトとログインコントローラー、ログインアクションページのViewはサンプルです。
 
 

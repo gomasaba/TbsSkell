@@ -18,7 +18,7 @@ foreach ($associations as $type => $data) {
 	}
 }
 ?>
-<?php echo ")); ?>"?>
+<?php echo "),array('class'=>'btns')); ?>"?>
 	</div>
 </div>
 

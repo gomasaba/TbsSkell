@@ -7,7 +7,7 @@ echo " <?php echo \$this->Html->nestedList(
 		\$this->Form->postLink(__('Delete " . $singularHumanName . "'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class'=>'btn danger'), __('Are you sure you want to delete # %s?', \${$singularVar}['{$modelClass}']['{$primaryKey}'])),
 		\$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index'),array('class'=>'btn')),
 		\$this->Html->link(__('New " . $singularHumanName . "'), array('action' => 'add'),array('class'=>'btn'))
-)); ?>"
+),array('class'=>'btns')); ?>"
 ?>
 <?php
 	$done = array();
@@ -18,7 +18,7 @@ echo " <?php echo \$this->Html->nestedList(
 				array(
 					\$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index'),array('class'=>'btn')),
 					\$this->Html->link(__('New " .  Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add'),array('class'=>'btn'))
-				)
+				),array('class'=>'btns')
 				); ?>";
 				$done[] = $details['controller'];
 			}
@@ -26,81 +26,6 @@ echo " <?php echo \$this->Html->nestedList(
 	}
 ?>
 
-<?php
-if (!empty($associations['hasOne'])) :
-	foreach ($associations['hasOne'] as $alias => $details): ?>
-	<div class="related">
-		<h3><?php echo "<?php echo __('Related " . Inflector::humanize($details['controller']) . "');?>";?></h3>
-	<?php echo "<?php if (!empty(\${$singularVar}['{$alias}'])):?>\n";?>
-		<dl>
-	<?php
-			foreach ($details['fields'] as $field) {
-				echo "\t\t<dt><?php echo __('" . Inflector::humanize($field) . "');?></dt>\n";
-				echo "\t\t<dd>\n\t<?php echo \${$singularVar}['{$alias}']['{$field}'];?>\n&nbsp;</dd>\n";
-			}
-	?>
-		</dl>
-	<?php echo "<?php endif; ?>\n";?>
-		<div class="actions">
-			<ul>
-				<li><?php echo "<?php echo \$this->Html->link(__('Edit " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n";?>
-			</ul>
-		</div>
-	</div>
-	<?php
-	endforeach;
-endif;
-if (empty($associations['hasMany'])) {
-	$associations['hasMany'] = array();
-}
-if (empty($associations['hasAndBelongsToMany'])) {
-	$associations['hasAndBelongsToMany'] = array();
-}
-$relations = array_merge($associations['hasMany'], $associations['hasAndBelongsToMany']);
-$i = 0;
-foreach ($relations as $alias => $details):
-	$otherSingularVar = Inflector::variable($alias);
-	$otherPluralHumanName = Inflector::humanize($details['controller']);
-	?>
-<div class="related">
-	<h3><?php echo "<?php echo __('Related " . $otherPluralHumanName . "');?>";?></h3>
-	<?php echo "<?php if (!empty(\${$singularVar}['{$alias}'])):?>\n";?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-<?php
-			foreach ($details['fields'] as $field) {
-				echo "\t\t<th><?php echo __('" . Inflector::humanize($field) . "'); ?></th>\n";
-			}
-?>
-		<th class="actions"><?php echo "<?php echo __('Actions');?>";?></th>
-	</tr>
-<?php
-echo "\t<?php
-		\$i = 0;
-		foreach (\${$singularVar}['{$alias}'] as \${$otherSingularVar}): ?>\n";
-		echo "\t\t<tr>\n";
-			foreach ($details['fields'] as $field) {
-				echo "\t\t\t<td><?php echo \${$otherSingularVar}['{$field}'];?></td>\n";
-			}
-
-			echo "\t\t\t<td class=\"actions\">\n";
-			echo "\t\t\t\t<?php echo \$this->Html->link(__('View'), array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}'])); ?>\n";
-			echo "\t\t\t\t<?php echo \$this->Html->link(__('Edit'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}'])); ?>\n";
-			echo "\t\t\t\t<?php echo \$this->Form->postLink(__('Delete'), array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']), null, __('Are you sure you want to delete # %s?', \${$otherSingularVar}['{$details['primaryKey']}'])); ?>\n";
-			echo "\t\t\t</td>\n";
-		echo "\t\t</tr>\n";
-
-echo "\t<?php endforeach; ?>\n";
-?>
-	</table>
-<?php echo "<?php endif; ?>\n\n";?>
-	<div class="actions">
-		<ul>
-			<li><?php echo "<?php echo \$this->Html->link(__('New " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add'));?>";?> </li>
-		</ul>
-	</div>
-</div>
-<?php endforeach;?>
 	</div>
 
 </div>
@@ -146,5 +71,82 @@ foreach ($fields as $field) {
 }
 ?>
 </table>
+<?php
+if (!empty($associations['hasOne'])) :
+	foreach ($associations['hasOne'] as $alias => $details): ?>
+	<div class="page-header">
+		<h3><?php echo "<?php echo __('Related " . Inflector::humanize($details['controller']) . "');?>";?></h3>
+	</div>
+	<?php echo "<?php if (!empty(\${$singularVar}['{$alias}'])):?>\n";?>
+	
+	<?php
+			foreach ($details['fields'] as $field) {
+				echo "<?php
+					echo \$this->Html->tableCells(array(
+						array(
+							array(__('" . Inflector::humanize($field) . "'),array('class'=>'head')),
+							\${$singularVar}['{$alias}']['{$field}'],
+						),
+					));?>
+				";
+			}
+	?>
+	<?php echo "<?php endif; ?>\n";?>
+		<div class="actions">
+			<ul>
+				<li><?php echo "<?php echo \$this->Html->link(__('Edit " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n";?>
+			</ul>
+		</div>
+	<?php
+	endforeach;
+endif;
+?>
 
+	
+<?php
+if (empty($associations['hasMany'])) {
+	$associations['hasMany'] = array();
+}
+if (empty($associations['hasAndBelongsToMany'])) {
+	$associations['hasAndBelongsToMany'] = array();
+}
+$relations = array_merge($associations['hasMany'], $associations['hasAndBelongsToMany']);
+$i = 0;
+foreach ($relations as $alias => $details):
+	$otherSingularVar = Inflector::variable($alias);
+	$otherPluralHumanName = Inflector::humanize($details['controller']);
+	?>
+<div class="page-header">
+	<h3><?php echo "<?php echo __('Related " . $otherPluralHumanName . "');?>";?></h3>
+</div>
+	
+<?php echo "<?php if (!empty(\${$singularVar}['{$alias}'])):?>\n";?>
+<div class="related">
+	<table>
+<?php echo "<?php echo \$this->Html->tableHeaders(array(\n";
+		foreach ($details['fields'] as $field) {
+			echo "'".Inflector::humanize($field)."',\n";
+		}
+		echo "\t\t\t\t__('Actions')\n";
+		echo "));?>\n";
+		echo "\t<?php foreach (\${$singularVar}['{$alias}'] as \${$otherSingularVar}){\n";
+		echo "\t\techo \$this->Html->tableCells(array(\n";
+			foreach ($details['fields'] as $field) {
+				echo "\t\t\t\${$otherSingularVar}['{$field}'],\n";
+			}
+			echo "\t\t\t\$this->Html->nestedList(array(\n";
+			echo "\t\t\t\t\$this->Html->link(__('View'), array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}']),array('class'=>'btn')),\n";
+			echo "\t\t\t\t\$this->Html->link(__('Edit'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}']),array('class'=>'btn')),\n";
+			echo "\t\t\t\t\$this->Form->postLink(__('Delete'), array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']),array('class'=>'btn'), __('Are you sure you want to delete # %s?', \${$otherSingularVar}['{$details['primaryKey']}']))\n";
+			echo "\t\t\t)),\n";
+		echo "\t\t),array('class'=>'btns'));\n\t} ?>\n";
+?>
+	</table>
+</div>
+<?php echo "<?php endif; ?>\n";?>
+<?php endforeach;?>
+	</div>	
+	
+	
+	
 </div>
