@@ -41,7 +41,7 @@
 			echo "
 				echo \$this->Html->tableCells(array(
 				array(
-					array('__({$field})',array('class'=>'head')),
+					array(__('" . Inflector::humanize(Inflector::underscore($field)) . "')',array('class'=>'head')),
 					array(
 						\$this->Form->input('{$field}',array(
 							'label'=>false,
@@ -61,7 +61,7 @@
 			echo "
 				echo \$this->Html->tableCells(array(
 				array(
-					array('__({$assocName})',array('class'=>'head')),
+					array(__('" . Inflector::humanize(Inflector::underscore($assocName)) . "')',array('class'=>'head')),
 					array(
 						\$this->Form->input('{$assocName}',array(
 							'label'=>false,
