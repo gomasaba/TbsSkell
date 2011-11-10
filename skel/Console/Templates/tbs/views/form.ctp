@@ -41,7 +41,7 @@
 			echo "
 				echo \$this->Html->tableCells(array(
 				array(
-					array('{$field}',array('class'=>'head')),
+					array('__({$field})',array('class'=>'head')),
 					array(
 						\$this->Form->input('{$field}',array(
 							'label'=>false,
@@ -61,7 +61,7 @@
 			echo "
 				echo \$this->Html->tableCells(array(
 				array(
-					array('{$assocName}',array('class'=>'head')),
+					array('__({$assocName})',array('class'=>'head')),
 					array(
 						\$this->Form->input('{$assocName}',array(
 							'label'=>false,
